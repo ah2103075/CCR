@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".SignUpActivity">
+
+
+    <EditText
+        android:id="@+id/editNameID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name "
+        android:textSize="20sp">
+
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/editEmailID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:textSize="20sp">
+
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/editUserNameID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username "
+        android:textSize="20sp">
+
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/editPasswordID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password "
+        android:inputType="textPassword"
+        android:textSize="20sp">
+
+    </EditText>
+
+
+    <Button
+        android:id="@+id/signUpButtonID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="SIGN UP "
+        android:textSize="20sp"
+        android:textStyle="bold">
+
+    </Button>
+
+</LinearLayout>
