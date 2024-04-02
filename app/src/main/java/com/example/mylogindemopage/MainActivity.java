@@ -36,27 +36,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        String  username = usernameEditText.getText().toString();
+        String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
-        if(v.getId()==R.id.signInButtonID){
-            Boolean result = databaseHelper.findPassword(username, password);
-            if(result==true){
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                startActivity(intent);
-            }else{
-                Toast.makeText(getApplicationContext(), "username or password didn't match", Toast.LENGTH_SHORT).show();
+        if (username.equals("")) {
+            Toast.makeText(MainActivity.this, "Please enter username ", Toast.LENGTH_SHORT).show();
+        } else if (password.equals("")) {
+            Toast.makeText(MainActivity.this, "Please enter password ", Toast.LENGTH_SHORT).show();
+        } else {
+            if (v.getId() == R.id.signInButtonID) {
+                Boolean result = databaseHelper.findPassword(username, password);
+                if (result == true) {
+                    Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "username or password didn't match", Toast.LENGTH_SHORT).show();
+                }
             }
-        }
 
-        try {
-            if(v.getId()==R.id.signUpHereButtonID){
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent);
+            try {
+                if (v.getId() == R.id.signUpHereButtonID) {
+                    Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                    startActivity(intent);
+                }
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Please enter all data", Toast.LENGTH_LONG).show();
             }
-        }
-        catch (Exception e){
-            Toast.makeText(getApplicationContext(), "Please enter all data", Toast.LENGTH_LONG).show();
         }
     }
 }
