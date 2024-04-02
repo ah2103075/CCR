@@ -40,20 +40,35 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
-        userDetails.setName(name);
-        userDetails.setEmail(email);
-        userDetails.setUsername(username);
-        userDetails.setPassword(password);
-        if(v.getId()==R.id.signUpButtonID){
-            long rowID = databaseHelper.insertData(userDetails);
+        if(name.equals("")){
+            Toast.makeText(SignUpActivity.this, "Please enter name ", Toast.LENGTH_SHORT).show();
+        }
+        else if(email.equals("")){
+            Toast.makeText(SignUpActivity.this, "Please enter email ", Toast.LENGTH_SHORT).show();
+        }
+        else if(username.equals("")){
+            Toast.makeText(SignUpActivity.this, "Please enter username ", Toast.LENGTH_SHORT).show();
+        }
+        else if(password.equals("")){
+            Toast.makeText(SignUpActivity.this, "Please enter password ", Toast.LENGTH_SHORT).show();
+        }
 
-            if(rowID>0){
-                Toast.makeText(getApplicationContext(), "Registration successful ", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-            else{
-                Toast.makeText(getApplicationContext(), "Registration is not successful", Toast.LENGTH_LONG).show();
+        else{
+            userDetails.setName(name);
+            userDetails.setEmail(email);
+            userDetails.setUsername(username);
+            userDetails.setPassword(password);
+            if(v.getId()==R.id.signUpButtonID){
+                long rowID = databaseHelper.insertData(userDetails);
+
+                if(rowID>0){
+                    Toast.makeText(getApplicationContext(), "Registration successful ", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Registration is not successful", Toast.LENGTH_LONG).show();
+                }
             }
         }
 

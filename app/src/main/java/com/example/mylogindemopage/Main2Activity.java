@@ -45,18 +45,18 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         showButton.setOnClickListener(this);
 
 
-        spinnerTimeSlots.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String selectedTimeSlot = adapterView.getItemAtPosition(position).toString();
-                //Toast.makeText(Main2Activity.this, "Selected Time Slot: " + selectedTimeSlot, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                // Do nothing
-            }
-        });
+//        spinnerTimeSlots.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+//                String selectedTimeSlot = adapterView.getItemAtPosition(position).toString();
+//                //Toast.makeText(Main2Activity.this, "Selected Time Slot: " + selectedTimeSlot, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                // Do nothing
+//            }
+//        });
     }
 
     @Override
@@ -69,35 +69,39 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         String selectedTimeSlot = spinnerTimeSlots.getSelectedItem().toString();
         String id = studentIDEditText.getText().toString();
 
-        if (v.getId() == R.id.bookNowButtonID) {
-            // Check if the selected time slot and date are available
-            if (!isBookingAvailable(selectedDate, selectedTimeSlot)) {
-                Toast.makeText(getApplicationContext(), "This time slot is not available on selected date", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            long rowID = myDatabaseHelper.insertData(id, selectedDate, selectedTimeSlot);
-            if (rowID == -1) {
-                Toast.makeText(getApplicationContext(), "Booking is not successful", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "Booking successful", Toast.LENGTH_LONG).show();
-            }
-        }
-
-        if (v.getId() == R.id.showButtonID) {
-
-            Cursor cursor = myDatabaseHelper.displayAllData();
-            if (cursor.getCount() == 0) {
-                showData("Error ", "No data found");
-                return;
-            } else {
-                StringBuffer stringBuffer = new StringBuffer();
-                while (cursor.moveToNext()) {
-                    stringBuffer.append("Student ID :  " + cursor.getString(0) + "\n");
-                    stringBuffer.append("Date   :  " + cursor.getString(1) + "\n");
-                    stringBuffer.append("Time slot  :  " + cursor.getString(2) + "\n\n\n");
+        if (id.equals("")) {
+            Toast.makeText(Main2Activity.this, "Please enter Student ID", Toast.LENGTH_SHORT).show();
+        } else {
+            if (v.getId() == R.id.bookNowButtonID) {
+                // Check if the selected time slot and date are available
+                if (!isBookingAvailable(selectedDate, selectedTimeSlot)) {
+                    Toast.makeText(getApplicationContext(), "This time slot is not available on selected date", Toast.LENGTH_LONG).show();
+                    return;
                 }
-                showData("Field Booking Details ", stringBuffer.toString());
+
+                long rowID = myDatabaseHelper.insertData(id, selectedDate, selectedTimeSlot);
+                if (rowID == -1) {
+                    Toast.makeText(getApplicationContext(), "Booking is not successful", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Booking successful", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            if (v.getId() == R.id.showButtonID) {
+
+                Cursor cursor = myDatabaseHelper.displayAllData();
+                if (cursor.getCount() == 0) {
+                    showData("Error ", "No data found");
+                    return;
+                } else {
+                    StringBuffer stringBuffer = new StringBuffer();
+                    while (cursor.moveToNext()) {
+                        stringBuffer.append("Student ID     : " + cursor.getString(0) + "\n");
+                        stringBuffer.append("Date   : " + cursor.getString(1) + "\n");
+                        stringBuffer.append("Time slot    : " + cursor.getString(2) + "\n\n\n");
+                    }
+                    showData("Field Booking Details ", stringBuffer.toString());
+                }
             }
         }
     }
