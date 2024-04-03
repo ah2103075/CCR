@@ -45,18 +45,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         showButton.setOnClickListener(this);
 
 
-//        spinnerTimeSlots.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-//                String selectedTimeSlot = adapterView.getItemAtPosition(position).toString();
-//                //Toast.makeText(Main2Activity.this, "Selected Time Slot: " + selectedTimeSlot, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//                // Do nothing
-//            }
-//        });
     }
 
     @Override
@@ -96,9 +84,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 } else {
                     StringBuffer stringBuffer = new StringBuffer();
                     while (cursor.moveToNext()) {
-                        stringBuffer.append("Student ID     : " + cursor.getString(0) + "\n");
-                        stringBuffer.append("Date   : " + cursor.getString(1) + "\n");
-                        stringBuffer.append("Time slot    : " + cursor.getString(2) + "\n\n\n");
+                        stringBuffer.append("Student ID  : " + cursor.getString(0) + "\n");
+                        stringBuffer.append("Date          : " + cursor.getString(1) + "\n");
+                        stringBuffer.append("Time slot   : " + cursor.getString(2) + "\n\n\n");
                     }
                     showData("Field Booking Details ", stringBuffer.toString());
                 }
@@ -107,23 +95,17 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     }
 
     private boolean isBookingAvailable(String selectedDate, String selectedTimeSlot) {
+
         SQLiteDatabase sqLiteDatabase = myDatabaseHelper.getReadableDatabase();
         String selection = MyDatabaseHelper.COLUMN_DATE + " = ? AND " + MyDatabaseHelper.COLUMN_TIME_SLOT + " = ?";
         String[] selectionArgs = {selectedDate, selectedTimeSlot};
-        Cursor cursor = sqLiteDatabase.query(
-                MyDatabaseHelper.TABLE_BOOKINGS,
-                null,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
+        Cursor cursor = sqLiteDatabase.query(MyDatabaseHelper.TABLE_BOOKINGS, null, selection, selectionArgs, null, null, null);
 
         boolean isAvailable = cursor.getCount() == 0;
         cursor.close();
         return isAvailable;
     }
+
     public void showData(String title, String message) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
