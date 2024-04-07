@@ -1,4 +1,5 @@
 package com.example.mylogindemopage;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -30,23 +31,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        try {
-            Toast.makeText(context, "onCreate method is called", Toast.LENGTH_LONG).show();
-            sqLiteDatabase.execSQL(createTableQuery);
-        } catch (Exception e) {
-            Toast.makeText(context, "Exception : " + e, Toast.LENGTH_LONG).show();
-        }
+        sqLiteDatabase.execSQL(createTableQuery);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        try {
-            Toast.makeText(context, "onUpgrade method is called", Toast.LENGTH_LONG).show();
-            sqLiteDatabase.execSQL(DROP_TABLE);
-            onCreate(sqLiteDatabase);
-        } catch (Exception e) {
-            Toast.makeText(context, "Exception : " + e, Toast.LENGTH_LONG).show();
-        }
+        sqLiteDatabase.execSQL(DROP_TABLE);
+        onCreate(sqLiteDatabase);
     }
 
     public long insertData(String id, String date, String timeSlot) {
